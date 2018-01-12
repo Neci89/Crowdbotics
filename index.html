@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	<div id="header-content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12 text-md-center header-div">
+				    <div class="col-md-3 top-100">
+					<h3>Top 100</h3>
+					<h2>United States...</h2>
+				</div>
+					<h6>Music Covers</h6>
+					<h2>Taylor Swift Songs and Videos</h2>
+					<p>lorem ipsum dolorem est</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="main-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 scrollable">
+					<div id="list"></div>
+				</div>
+				<div class="col-md-6">
+					<div class="col-md-3 float-left covers">
+						<img src="http://culture.pl/sites/default/files/images/imported/muzyka/galerie%20foto/gl%20winyle%20okladki%20plyt%20szaybo%20i%20zagorski/galeria/rs%20janis%20joplin%202%20_7066726.jpg" alt="" class="img-fluid">
+						<a href="#">Global Top 100</a>
+						<p class="text-center">The Most Shazamed song...</p>
+					</div>
+					<div class="col-md-3 float-right covers">
+						<img src="https://upload.wikimedia.org/wikipedia/en/5/5e/7_Nights_cover.jpg" alt="" class="img-fluid">
+						<a href="#">Global Top 100</a>
+						<p class="text-center">The Most Shazamed song...</p>
+					</div>
+					<div class="col-md-3 float-left covers">
+						<img src="https://i.pinimg.com/originals/64/a4/67/64a46799243daeaab473a99f7a6f09f8.jpg" alt="" class="img-fluid">
+						<a href="#">Global Top 100</a>
+						<p class="text-center">The Most Shazamed song...</p>
+					</div>
+					<div class="col-md-3 float-right covers">
+						<img src="https://i.pinimg.com/originals/de/b5/8f/deb58ff0be3b4238ec3d1b4f96538627.jpg" alt="" class="img-fluid">
+						<a href="#">Global Top 100</a>
+						<p class="text-center">The Most Shazamed song...</p>
+					</div>
+					<div class="col-md-3 float-left covers">
+						<img src="https://upload.wikimedia.org/wikipedia/en/f/f3/Meek_mill_amen_cover.jpg" alt="" class="img-fluid">
+						<a href="#">Global Top 100</a>
+						<p class="text-center">The Most Shazamed song...</p>
+					</div>
+					<div class="col-md-3 float-right covers">
+						<img src="https://i.pinimg.com/736x/08/58/2a/08582ae564bfc42898e54ec93d51b519--music-albums-number-.jpg" alt="" class="img-fluid">
+						<a href="#">Global Top 100</a>
+						<p class="text-center">The Most Shazamed song...</p>
+					</div>
+
+				</div>			
+			</div>
+		</div>
+	</div>
+
+
+	
+</body>
+
+<script>
+$( document ).ready(function() {
+  $.get( "https://itunes.apple.com/search?term=taylor+swift&country=us&limit=200&media=music", function( data ) {
+  	  var obj = JSON.parse(data);
+
+  	  var filteredArray = new Array();
+		for (i = 0; i < obj.results.length; i++) {
+			var exists = false; 
+		    for (j = 0; j < filteredArray.length; j++) { 
+			    if(obj.results[i].trackName == filteredArray[j].trackName) {
+			    	exists = true;
+			    	break;
+			    }
+			}
+			if (exists == true) {
+				continue;
+			}
+
+			filteredArray.push(obj.results[i]);
+		}
+
+	  filteredArray.forEach(function(current_value) {
+		  	if(current_value.artistName == "Taylor Swift"){
+		  	
+	            $( "#list" ).append( "<div class='test'> <img src='" + current_value.artworkUrl60 + "' height='60' width='60'>" + "<div class='artist-info'>" + "<h5>" + current_value.trackName + "</h5>" + "<h6>" + current_value.collectionName + "</h6>" + "<p>" + current_value.trackId + "</p>" + "</div>" + " </div>" );
+	        }
+        });
+	});
+});
+	
+</script>
+
+</html>
